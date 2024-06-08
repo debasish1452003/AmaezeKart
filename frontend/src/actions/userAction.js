@@ -72,9 +72,10 @@ export const register = (userData) => async (dispatch) => {
 
     dispatch({ type: REGISTER_SUCCESS, payload: data.user });
   } catch (error) {
+    console.error("Error:", error.response.data);
     dispatch({
       type: REGISTER_FAIL,
-      payload: error.response.data.message,
+      payload: error.response.data.message || "Unknown error",
     });
   }
 };
