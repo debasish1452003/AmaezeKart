@@ -97,9 +97,6 @@ function App() {
       />
       <ProtectedRoute exact path="/shipping" Component={Shipping} />
 
-      <Elements stripe={loadStripe(stripeApiKey)}>
-        <ProtectedRoute exact path="/process/payment" Component={Payment} />
-      </Elements>
       <ProtectedRoute exact path="/success" Component={OrderSuccess} />
       <ProtectedRoute exact path="/orders" Component={MyOrders} />
 
