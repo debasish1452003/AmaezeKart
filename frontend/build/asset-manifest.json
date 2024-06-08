@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.3fe1ba13.css",
+    "main.js": "/static/js/main.37a12b27.js",
+    "static/media/Logo.png": "/static/media/Logo.2bd0e99f368f734e2f52.png",
+    "static/media/PlayStore.png": "/static/media/PlayStore.ec4426f7963b29090cfc.png",
+    "static/media/AppStore.png": "/static/media/AppStore.ff57d75a5c0a97559d48.png",
+    "index.html": "/index.html",
+    "main.3fe1ba13.css.map": "/static/css/main.3fe1ba13.css.map",
+    "main.37a12b27.js.map": "/static/js/main.37a12b27.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3fe1ba13.css",
+    "static/js/main.37a12b27.js"
+  ]
+}
