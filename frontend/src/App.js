@@ -51,24 +51,24 @@ import NotFound from "./component/layout/Not Found/NotFound.js";
 function App() {
   const { isAuthenticated, user, loading } = useSelector((state) => state.user);
 
-  const [stripeApiKey, setStripeApiKey] = useState("");
+  // const [stripeApiKey, setStripeApiKey] = useState("");
 
-  async function getStripeApiKey() {
-    try {
-      const { data } = await axios.get("/api/v1/stripeapikey");
+  // async function getStripeApiKey() {
+  //   try {
+  //     const { data } = await axios.get("/api/v1/stripeapikey");
 
-      console.log("key received");
+  //     console.log("key received");
 
-      setStripeApiKey(data.stripeApiKey);
-    } catch (error) {
-      console.error("An error occurred:", error);
-    }
-  }
-  useEffect(() => {
-    if (stripeApiKey) {
-      const stripePromise = loadStripe(stripeApiKey);
-    }
-  }, [stripeApiKey]);
+  //     setStripeApiKey(data.stripeApiKey);
+  //   } catch (error) {
+  //     console.error("An error occurred:", error);
+  //   }
+  // }
+  // useEffect(() => {
+  //   if (stripeApiKey) {
+  //     const stripePromise = loadStripe(stripeApiKey);
+  //   }
+  // }, [stripeApiKey]);
 
   useEffect(() => {
     WebFont.load({
@@ -78,49 +78,10 @@ function App() {
     });
 
     store.dispatch(loadUser());
-    getStripeApiKey();
+    // getStripeApiKey();
   }, []);
 
   // window.addEventListener("contextmenu", (e) => e.preventDefault());
-
-  // const [stripePromise, setStripePromise] = useState(null);
-  // const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   WebFont.load({
-  //     google: {
-  //       families: ["Roboto", "Droid Sans", "Chilanka"],
-  //     },
-  //   });
-
-  //   dispatch(loadUser());
-
-  //   const getStripeApiKey = async () => {
-  //     try {
-  //       const { data } = await axios.get("/api/v1/stripeapikey");
-  //       console.log("Stripe API Key received:", data.stripeApiKey); // Debugging log
-  //       setStripeApiKey(data.stripeApiKey);
-  //     } catch (error) {
-  //       console.error(
-  //         "An error occurred while fetching the Stripe API key:",
-  //         error
-  //       );
-  //     }
-  //   };
-
-  //   getStripeApiKey();
-  // }, [dispatch]);
-
-  // useEffect(() => {
-  //   if (stripeApiKey) {
-  //     console.log("Initializing Stripe with key:", stripeApiKey); // Debugging log
-  //     setStripePromise(loadStripe(stripeApiKey));
-  //   }
-  // }, [stripeApiKey]);
-
-  // if (!stripePromise) {
-  //   return <div>Loading...</div>; // Display a loading state while the Stripe key is being fetched
-  // }
 
   return (
     <Router>
