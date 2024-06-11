@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import Sidebar from "./Sidebar.js";
 import "./Dashboard.css";
 import { Typography } from "@material-ui/core";
@@ -7,7 +7,7 @@ import { Doughnut, Line } from "react-chartjs-2";
 import MetaData from "../layout/MetaData.js";
 import { ArcElement } from "chart.js";
 import { useDispatch, useSelector } from "react-redux";
-import { clearErrors, getAdminProduct } from "../../actions/productAction.js";
+import { getAdminProduct } from "../../actions/productAction.js";
 import { getAllOrders } from "../../actions/orderAction.js";
 import {
   Chart as ChartJS,
@@ -33,7 +33,7 @@ ChartJS.register(
 );
 
 const Dashboard = () => {
-  const { error, products } = useSelector((state) => state.products);
+  const { products } = useSelector((state) => state.products);
   const { orders } = useSelector((state) => state.allOrders);
   const { users } = useSelector((state) => state.allUsers);
   const dispatch = useDispatch();
@@ -65,7 +65,7 @@ const Dashboard = () => {
         label: "TOTAL AMOUNT",
         backgroundColor: ["tomato"],
         hoverBackgroundColor: ["rgba(197, 72, 49)"],
-        data: [0, 4000],
+        data: [0, totalAmount],
       },
     ],
   };
@@ -82,44 +82,46 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="dashboard">
-      <MetaData title="Dashboard - Admin Panel" />
-      <Sidebar />
+    <Fragment>
+      <div className="dashboard">
+        <MetaData title="Dashboard - Admin Panel" />
+        <Sidebar />
 
-      <div className="dashboardContainer">
-        <Typography component="h1">Dashboard</Typography>
+        <div className="dashboardContainer">
+          <Typography component="h1">Dashboard</Typography>
 
-        <div className="dashboardSummary">
-          <div>
-            <p>
-              Total Amount <br />₹{totalAmount}
-            </p>
+          <div className="dashboardSummary">
+            <div>
+              <p>
+                Total Amount <br />₹{totalAmount}
+              </p>
+            </div>
+            <div className="dashboardSummaryBox2">
+              <Link to="/admin/products">
+                <p>Product</p>
+                <p>{products && products.length}</p>
+              </Link>
+              <Link to="/admin/orders">
+                <p>Orders</p>
+                <p>{orders && orders.length}</p>
+              </Link>
+              <Link to="/admin/users">
+                <p>Users</p>
+                <p>{users && users.length}</p>
+              </Link>
+            </div>
           </div>
-          <div className="dashboardSummaryBox2">
-            <Link to="/admin/products">
-              <p>Product</p>
-              <p>{products && products.length}</p>
-            </Link>
-            <Link to="/admin/orders">
-              <p>Orders</p>
-              <p>{orders && orders.length}</p>
-            </Link>
-            <Link to="/admin/users">
-              <p>Users</p>
-              <p>{users && users.length}</p>
-            </Link>
+
+          <div className="lineChart">
+            <Line data={lineState} />
           </div>
-        </div>
 
-        <div className="lineChart">
-          <Line data={lineState} />
-        </div>
-
-        <div className="doughnutChart">
-          <Doughnut data={doughnutState} />
+          <div className="doughnutChart">
+            <Doughnut data={doughnutState} />
+          </div>
         </div>
       </div>
-    </div>
+    </Fragment>
   );
 };
 

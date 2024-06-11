@@ -11,7 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import { useAlert } from "react-alert";
 import MetaData from "../layout/MetaData";
 
-const Products = ({ match }) => {
+const Products = () => {
   const dispatch = useDispatch();
 
   const alert = useAlert();
@@ -40,7 +40,6 @@ const Products = ({ match }) => {
     "Smartphones",
   ];
 
-  // const keyword = match.params.keyword;
   const { keyword } = useParams();
 
   const setCurrentPageNo = (e) => {
@@ -86,7 +85,7 @@ const Products = ({ match }) => {
                 valueLabelDisplay="auto"
                 aria-labelledby="range-slider"
                 min={0}
-                max={25000000}
+                max={250000}
               ></Slider>
 
               <Typography>Categories</Typography>
@@ -120,7 +119,7 @@ const Products = ({ match }) => {
             <div></div>
           )}
 
-          {resultPerPage < count && (
+          {resultPerPage < productsCount && (
             <div className="paginationBox">
               <Paginatio
                 activePage={currentPage}

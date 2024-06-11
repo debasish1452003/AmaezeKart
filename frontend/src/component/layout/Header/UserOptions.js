@@ -20,20 +20,29 @@ const UserOptions = ({ user }) => {
   const dispatch = useDispatch();
 
   const { cartItems } = useSelector((state) => state.cart);
+  const [activeItem, setActiveItem] = useState("");
 
   const options = [
-    { icon: <ListAltIcon />, name: "Orders", func: orders },
-    { icon: <PersonIcon />, name: "Profile", func: account },
+    { id: 1, icon: <ListAltIcon />, name: "Orders", func: orders },
+    { id: 2, icon: <PersonIcon />, name: "Profile", func: account },
     {
+      id: 3,
       icon: (
         <ShoppingCartIcon
-          style={{ color: cartItems.length > 0 ? "tomato" : "unset" }}
+          style={{
+            color: cartItems.length > 0 ? "leafGreen" : "tomato",
+          }}
         />
       ),
       name: `Cart(${cartItems.length})`,
       func: cart,
     },
-    { icon: <ExitToAppIcon />, name: "Logout", func: logoutUser },
+    {
+      id: 4,
+      icon: <ExitToAppIcon style={{ color: "red" }} />,
+      name: "Logout",
+      func: logoutUser,
+    },
   ];
 
   if (user.role === "admin") {
@@ -65,6 +74,11 @@ const UserOptions = ({ user }) => {
     alert.success("Logout Succesfully");
   }
 
+  const handleClick = (item) => {
+    setActiveItem(item.id);
+    item.func();
+  };
+
   return (
     <Fragment>
       <Backdrop open={open} style={{ zIndex: "10" }} />
@@ -89,8 +103,9 @@ const UserOptions = ({ user }) => {
             icon={item.icon}
             key={item.name}
             tooltipTitle={item.name}
-            onClick={item.func}
+            onClick={() => handleClick(item)}
             tooltipOpen={window.innerWidth <= 600 ? true : false}
+            className={activeItem === item.id ? "active" : "link"}
           />
         ))}
       </SpeedDial>

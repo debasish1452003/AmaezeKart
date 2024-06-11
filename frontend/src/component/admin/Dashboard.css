@@ -3,8 +3,10 @@
     max-width: 100%;
     display: grid;
     grid-template-columns: 1fr 5fr;
-    position: absolute;
-  }
+    /* position: absolute; */
+    min-height: 100vh; /* Ensure the dashboard takes up at least the full viewport height */
+    position: relative;
+  } 
   
   .dashboardContainer {
     border-left: 1px solid rgba(0, 0, 0, 0.13);
