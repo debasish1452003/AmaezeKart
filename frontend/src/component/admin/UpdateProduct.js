@@ -42,11 +42,12 @@ const UpdateProduct = () => {
   const categories = [
     "Laptop",
     "Footwear",
-    "Bottom",
-    "Tops",
-    "Attire",
+    "Clothing",
+    "Electronics",
+    "TV's",
     "Camera",
     "SmartPhones",
+    "Others",
   ];
 
   //   const productId = match.params.id;
@@ -220,7 +221,7 @@ const UpdateProduct = () => {
               type="submit"
               disabled={loading ? true : false}
             >
-              Create
+              Update
             </Button>
           </form>
         </div>

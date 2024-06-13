@@ -32,11 +32,12 @@ const NewProduct = () => {
   const categories = [
     "Laptop",
     "Footwear",
-    "Bottom",
-    "Tops",
-    "Attire",
+    "Clothing",
+    "Electronics",
+    "TV's",
     "Camera",
     "SmartPhones",
+    "Others",
   ];
 
   useEffect(() => {

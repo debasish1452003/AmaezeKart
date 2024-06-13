@@ -6,7 +6,6 @@ import {
   Routes,
   Route,
   useNavigate,
-  Navigate,
 } from "react-router-dom";
 
 const ProtectedRoute = ({ isAdmin, component: Component, ...rest }) => {

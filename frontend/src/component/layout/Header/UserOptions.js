@@ -20,7 +20,7 @@ const UserOptions = ({ user }) => {
   const dispatch = useDispatch();
 
   const { cartItems } = useSelector((state) => state.cart);
-  const [activeItem, setActiveItem] = useState("");
+  const [activeItem, setActiveItem] = useState(null);
 
   const options = [
     { id: 1, icon: <ListAltIcon />, name: "Orders", func: orders },
@@ -30,7 +30,7 @@ const UserOptions = ({ user }) => {
       icon: (
         <ShoppingCartIcon
           style={{
-            color: cartItems.length > 0 ? "leafGreen" : "tomato",
+            color: cartItems.length > 0 ? "green" : "tomato",
           }}
         />
       ),

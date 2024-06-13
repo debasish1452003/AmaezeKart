@@ -16,7 +16,7 @@ import Products from "./component/Product/Products.js";
 import Search from "./component/Product/Search.js";
 
 import LoginSignUp from "./component/User/LoginSignUp.js";
-import store from "./store";
+
 import { loadUser } from "./actions/userAction.js";
 import UserOptions from "./component/layout/Header/UserOptions.js";
 import { useDispatch, useSelector } from "react-redux";
@@ -51,37 +51,53 @@ import NotFound from "./component/layout/Not Found/NotFound.js";
 function App() {
   const { isAuthenticated, user, loading } = useSelector((state) => state.user);
 
-  // const [stripeApiKey, setStripeApiKey] = useState("");
+  const [stripeApiKey, setStripeApiKey] = useState("");
+  const [stripe, setStripe] = useState(null);
 
-  // async function getStripeApiKey() {
-  //   try {
-  //     const { data } = await axios.get("/api/v1/stripeapikey");
+  // window.addEventListener("contextmenu", (e) => e.preventDefault());
 
-  //     console.log("key received");
+  // const [stripePromise, setStripePromise] = useState(null);
+  const dispatch = useDispatch();
 
-  //     setStripeApiKey(data.stripeApiKey);
-  //   } catch (error) {
-  //     console.error("An error occurred:", error);
-  //   }
-  // }
-  // useEffect(() => {
-  //   if (stripeApiKey) {
-  //     const stripePromise = loadStripe(stripeApiKey);
-  //   }
-  // }, [stripeApiKey]);
+  const getStripeApiKey = async () => {
+    try {
+      const { data } = await axios.get("/api/v1/stripeapikey");
+      console.log("Stripe API Key received:", data.stripeApiKey); // Debugging log
+      setStripeApiKey(data.stripeApiKey);
+    } catch (error) {
+      console.error(
+        "An error occurred while fetching the Stripe API key:",
+        error
+      );
+    }
+  };
 
   useEffect(() => {
     WebFont.load({
       google: {
-        families: ["Roboto", "Droid Sanns", "Chilanka"],
+        families: ["Roboto", "Droid Sans", "Chilanka"],
       },
     });
 
-    store.dispatch(loadUser());
-    // getStripeApiKey();
-  }, []);
+    dispatch(loadUser());
 
-  // window.addEventListener("contextmenu", (e) => e.preventDefault());
+    getStripeApiKey();
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (stripeApiKey) {
+      console.log("Initializing Stripe with key:", stripeApiKey);
+      // setStripePromise(loadStripe(stripeApiKey));
+      const stripeInstance = loadStripe(stripeApiKey);
+      stripeInstance.then(setStripe);
+      // loadStripe(stripeApiKey);
+    }
+  }, [stripeApiKey]);
+
+  // if (!stripePromise) {
+  //    <>
+  //    </>
+  // }
 
   return (
     <Router>
@@ -97,6 +113,14 @@ function App() {
       />
       <ProtectedRoute exact path="/shipping" Component={Shipping} />
 
+      <Elements stripe={loadStripe(stripeApiKey)}>
+        <ProtectedRoute
+          key={stripeApiKey}
+          exact
+          path="/process/payment"
+          Component={Payment}
+        />
+      </Elements>
       <ProtectedRoute exact path="/success" Component={OrderSuccess} />
       <ProtectedRoute exact path="/orders" Component={MyOrders} />
 
@@ -181,11 +205,15 @@ function App() {
         <Route exact path="/cart" Component={Cart} />
         <Route exact path="/contact" Component={Contact} />
         <Route exact path="/about" Component={About} />
+
         {/* <Route
+          exat
+          path="*"
           Component={
             window.location.pathname === "/process/payment" ? null : NotFound
           }
         /> */}
+        {/* <Route exact path="*" Component={NotFound} /> */}
       </Routes>
       <Footer />
     </Router>
@@ -193,5 +221,3 @@ function App() {
 }
 
 export default App;
-
-// Time: 6:47

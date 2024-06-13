@@ -21,7 +21,7 @@ import { useNavigate } from "react-router-dom";
 
 import { clearErrors, createOrder } from "../../actions/orderAction";
 
-const Payment = () => {
+const Payment = ({ key }) => {
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
   const payBtn = useRef(null);
 
@@ -56,6 +56,7 @@ const Payment = () => {
       const config = {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${key}`,
         },
       };
 

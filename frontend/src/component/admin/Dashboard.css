@@ -1,11 +1,11 @@
 .dashboard {
-    width: 100vw;
+    /* width: 100vw; */
     max-width: 100%;
     display: grid;
     grid-template-columns: 1fr 5fr;
-    /* position: absolute; */
+    position: absolute;
     min-height: 100vh; /* Ensure the dashboard takes up at least the full viewport height */
-    position: relative;
+    /* position: relative; */
   } 
   
   .dashboardContainer {
